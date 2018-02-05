@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -53,12 +54,16 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Get the {@link Word} object located at this position in the list
         Word currentWord = (Word) getItem(position);
         // Find the TextView in the list_item.xml layout with the ID miwok_text_view
-        TextView miworkTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
+        TextView miwokTextView = (TextView) listItemView.findViewById(R.id.miwok_text_view);
         // Get the version anme for the current Word object and
         // set this text on the same TextView.
-        miworkTextView.setText(currentWord.getMiwokTranslation());
+        miwokTextView.setText(currentWord.getMiwokTranslation());
         TextView defaultTranlstationTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
         defaultTranlstationTextView.setText(currentWord.getDefaultTranslation());
+
+        ImageView imageImageView = (ImageView) listItemView.findViewById(R.id.iv_image);
+        imageImageView.setImageResource(currentWord.getmImageResourceId());
+
 
         return listItemView;
 
