@@ -26,7 +26,7 @@ public class NumbersActivity extends AppCompatActivity {
         words.add(new Word("seven", "kenekaku", R.drawable.number_seven));
         words.add(new Word("eight", "kawinta", R.drawable.number_eight));
         words.add(new Word("nine", "wo'e", R.drawable.number_nine));
-        words.add(new Word("ten", "na'aacha", R, R.drawable.number_ten));
+        words.add(new Word("ten", "na'aacha", R.drawable.number_ten));
 
         WordAdapter wordAdapter = new WordAdapter(this, words);
 
