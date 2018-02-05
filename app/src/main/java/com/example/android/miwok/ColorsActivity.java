@@ -16,14 +16,14 @@ public class ColorsActivity extends AppCompatActivity {
 
 
         ArrayList<Word>  colorVocabulary = new ArrayList<>();
-        colorVocabulary.add(new Word("red", "weṭeṭṭi"));
-        colorVocabulary.add(new Word("green","chokokki"));
-        colorVocabulary.add(new Word("brown", "ṭakaakki"));
-        colorVocabulary.add(new Word("gray", "ṭopoppi"));
-        colorVocabulary.add(new Word("black", "kululli"));
-        colorVocabulary.add(new Word("white", "kelelli"));
-        colorVocabulary.add(new Word("dusty yellow", "ṭopiisә"));
-        colorVocabulary.add(new Word("mustard yellow", "chiwiiṭә"));
+        colorVocabulary.add(new Word("red", "weṭeṭṭi", R.drawable.color_red));
+        colorVocabulary.add(new Word("green","chokokki", R.drawable.color_green));
+        colorVocabulary.add(new Word("brown", "ṭakaakki", R.drawable.color_brown));
+        colorVocabulary.add(new Word("gray", "ṭopoppi", R.drawable.color_gray));
+        colorVocabulary.add(new Word("black", "kululli", R.drawable.color_black));
+        colorVocabulary.add(new Word("white", "kelelli", R.drawable.color_white));
+        colorVocabulary.add(new Word("dusty yellow", "ṭopiisә", R.drawable.color_dusty_yellow));
+        colorVocabulary.add(new Word("mustard yellow", "chiwiiṭә", R.drawable.color_mustard_yellow));
 
         WordAdapter adapter = new WordAdapter(this, colorVocabulary);
 
