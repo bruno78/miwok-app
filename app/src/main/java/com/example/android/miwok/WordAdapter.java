@@ -65,15 +65,13 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
         if(currentWord.hasImage()) {
             imageImageView.setImageResource(currentWord.getmImageResourceId());
+            imageImageView.setVisibility(View.VISIBLE);
         }
         else {
             imageImageView.setVisibility(View.GONE);
         }
 
         return listItemView;
-
-
-
 
     }
 }
