@@ -52,7 +52,7 @@ public class Word {
     /**
      * Get the id for the image resource location
      */
-    public int getmImageResourceId() { return mImageResourceId; }
+    public int getImageResourceId() { return mImageResourceId; }
 
     /**
      * Test the condition whether Word object has image or not
