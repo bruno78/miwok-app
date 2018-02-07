@@ -18,7 +18,7 @@ public class FamilyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
-        ArrayList<Word> familyVocabulary = new ArrayList<>();
+         final ArrayList<Word> familyVocabulary = new ArrayList<>();
 
         familyVocabulary.add(new Word("father", "әpә", R.drawable.family_father,
                                                                               R.raw.family_father));

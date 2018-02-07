@@ -19,7 +19,7 @@ public class PhrasesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
-        ArrayList<Word> phrasesVocabulary = new ArrayList();
+        final ArrayList<Word> phrasesVocabulary = new ArrayList();
 
         phrasesVocabulary.add(new Word("Where are you going?", "minto wuksus", NO_IMAGE,
                                                                                                     R.raw.phrase_where_are_you_going));
