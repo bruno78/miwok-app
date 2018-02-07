@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class PhrasesActivity extends AppCompatActivity {
 
     private static final int NO_IMAGE = -1;
+    private MediaPlayer mMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,11 +51,22 @@ public class PhrasesActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                stopPlaying();
                 Word word = (Word) parent.getItemAtPosition(position);
-                MediaPlayer mediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getAudioResourceId());
-                mediaPlayer.start();
+                mMediaPlayer = MediaPlayer.create(PhrasesActivity.this, word.getAudioResourceId());
+                mMediaPlayer.start();
             }
         });
+    }
 
+    /**
+     * This helper method prevents multiple plays on multiple clicks.
+     */
+    private void stopPlaying() {
+        if (mMediaPlayer != null) {
+            mMediaPlayer.stop();
+            mMediaPlayer.release();
+            mMediaPlayer = null;
+        }
     }
 }
