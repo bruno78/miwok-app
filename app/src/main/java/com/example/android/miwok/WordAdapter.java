@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,9 +70,10 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Get the version anme for the current Word object and
         // set this text on the same TextView.
         miwokTextView.setText(currentWord.getMiwokTranslation());
-        TextView defaultTranlstationTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
-        defaultTranlstationTextView.setText(currentWord.getDefaultTranslation());
+        TextView defaultTranslationTextView = (TextView) listItemView.findViewById(R.id.default_text_view);
+        defaultTranslationTextView.setText(currentWord.getDefaultTranslation());
 
+        // Handling image
         ImageView imageImageView = (ImageView) listItemView.findViewById(R.id.iv_image);
 
         if(currentWord.hasImage()) {
@@ -81,6 +83,17 @@ public class WordAdapter extends ArrayAdapter<Word> {
         else {
             imageImageView.setVisibility(View.GONE);
         }
+
+        // Handling
+        final MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), currentWord.getAudioResourceId());
+        listItemView.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mediaPlayer.start();
+            }
+        });
+
 
         return listItemView;
 

@@ -9,6 +9,7 @@ public class Word {
     private String mDefaultTranslation;
     private int mImageResourceId = NO_IMAGE;
     private static final int NO_IMAGE = -1;
+    private int mAudioResourceId;
 
     /**
      * This constructor accepts two parameters, first is the Miwok word and second is the translation
@@ -33,6 +34,21 @@ public class Word {
         mImageResourceId = vImageResourceId;
     }
 
+    /**
+     * This constructor accepts three parameters, first is the Miwok word, second is the translation
+     * and third is Image Resource Id to locate image.
+     * @param miwokWord to be translated
+     * @param defaultWord is the translation of the Miwok word
+     * @param vImageResourceId is the id resource of the image
+     * @param vAudioResourceId is the id resource for the audio
+     */
+    public Word(String defaultWord, String miwokWord, int vImageResourceId, int vAudioResourceId) {
+        mMiwokTranslation = miwokWord;
+        mDefaultTranslation = defaultWord;
+        mImageResourceId = vImageResourceId;
+        mAudioResourceId = vAudioResourceId;
+    }
+
 
 
     /**
@@ -53,6 +69,11 @@ public class Word {
      * Get the id for the image resource location
      */
     public int getImageResourceId() { return mImageResourceId; }
+
+    /**
+     * Get the id for the audio resource location
+     */
+    public int getAudioResourceId() { return mAudioResourceId; }
 
     /**
      * Test the condition whether Word object has image or not
