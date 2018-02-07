@@ -1,6 +1,7 @@
 package com.example.android.miwok;
 
 import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +14,16 @@ import java.util.ArrayList;
 public class ColorsActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
+
+    /**
+     * This event listener gets triggered when audio file finishes playing.
+     */
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +57,11 @@ public class ColorsActivity extends AppCompatActivity {
         colorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                stopPlaying();
+                releaseMediaPlayer();
                 Word word = (Word) parent.getItemAtPosition(position);
                 mMediaPlayer = MediaPlayer.create(ColorsActivity.this, word.getAudioResourceId());
                 mMediaPlayer.start();
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
 
             }
         });
@@ -58,7 +70,7 @@ public class ColorsActivity extends AppCompatActivity {
     /**
      * This helper method prevents multiple plays on multiple clicks.
      */
-    private void stopPlaying() {
+    private void releaseMediaPlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.release();

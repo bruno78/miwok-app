@@ -15,6 +15,16 @@ public class NumbersActivity extends AppCompatActivity {
 
     private MediaPlayer mMediaPlayer;
 
+    /**
+     * This event listener gets triggered when audio file finishes playing.
+     */
+    private MediaPlayer.OnCompletionListener mCompletionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseMediaPlayer();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,10 +63,11 @@ public class NumbersActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                stopPlaying();
+                releaseMediaPlayer();
                 Word word = (Word) adapterView.getItemAtPosition(position);
                 mMediaPlayer = MediaPlayer.create(NumbersActivity.this, word.getAudioResourceId());
                 mMediaPlayer.start();
+                mMediaPlayer.setOnCompletionListener(mCompletionListener);
             }
         });
 
@@ -65,7 +76,7 @@ public class NumbersActivity extends AppCompatActivity {
     /**
      * This helper method prevents multiple plays on multiple clicks.
      */
-    private void stopPlaying() {
+    private void releaseMediaPlayer() {
         if (mMediaPlayer != null) {
             mMediaPlayer.stop();
             mMediaPlayer.release();
