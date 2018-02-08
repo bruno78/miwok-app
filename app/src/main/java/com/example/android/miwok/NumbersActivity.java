@@ -31,7 +31,7 @@ public class NumbersActivity extends AppCompatActivity {
     /**
      * This event listener gets triggered when audio states change
      */
-    private AudioManager.OnAudioFocusChangeListener afChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
@@ -100,7 +100,7 @@ public class NumbersActivity extends AppCompatActivity {
                 Word word = (Word) adapterView.getItemAtPosition(position);
 
                 // Request audio focus for playback
-                int result = mAudioManager.requestAudioFocus(afChangeListener, AudioManager.STREAM_MUSIC,
+                int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener, AudioManager.STREAM_MUSIC,
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
                 // If audio request is successful, start the playback
@@ -134,7 +134,7 @@ public class NumbersActivity extends AppCompatActivity {
             mMediaPlayer = null;
 
             // Abandon audio focus when playback is complete;
-            mAudioManager.abandonAudioFocus(afChangeListener);
+            mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
         }
     }
 
