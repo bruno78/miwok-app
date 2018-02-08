@@ -73,6 +73,14 @@ public class NumbersActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        // Make sure the audio stop playing when the user leaves the app
+        releaseMediaPlayer();
+    }
+
     /**
      * This helper method prevents multiple plays on multiple clicks.
      */
