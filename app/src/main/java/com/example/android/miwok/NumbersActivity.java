@@ -59,8 +59,6 @@ public class NumbersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_list);
 
-        // Get Audio Manager system service from the context
-        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
 
         final ArrayList<Word> words = new ArrayList<Word>();
         words.add(new Word("one", "lutti", R.drawable.number_one,
@@ -83,6 +81,10 @@ public class NumbersActivity extends AppCompatActivity {
                                                                   R.raw.number_nine));
         words.add(new Word("ten", "na'aacha", R.drawable.number_ten,
                                                                      R.raw.number_ten));
+
+        // Get Audio Manager system service from the context
+        mAudioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+
         // Creates the adapter for the recycler view,
         // The third argument sets the color background for the Activity
         WordAdapter wordAdapter = new WordAdapter(this, words, R.color.category_numbers);
