@@ -70,7 +70,7 @@ public class ColorsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.activity_category, container, false);
+        View rootView = inflater.inflate(R.layout.word_list, container, false);
 
         final ArrayList<Word> colorVocabulary = new ArrayList<>();
         colorVocabulary.add(new Word("red", "weṭeṭṭi", R.drawable.color_red,
@@ -95,7 +95,7 @@ public class ColorsFragment extends Fragment {
 
         WordAdapter adapter = new WordAdapter(getActivity(), colorVocabulary, R.color.category_colors);
 
-        ListView colorListView = (ListView) getActivity().findViewById(R.id.list);
+        ListView colorListView = (ListView) rootView.findViewById(R.id.list);
         colorListView.setAdapter(adapter);
 
         colorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
