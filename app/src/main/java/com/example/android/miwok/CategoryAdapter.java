@@ -15,7 +15,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 public class CategoryAdapter extends FragmentPagerAdapter {
 
     private Context mContext;
-    private static int NUM_PAGES = 4;
+    private static final int NUM_PAGES = 4;
 
     /**
      * Create a new {@link CategoryAdapter} object.
