@@ -70,7 +70,8 @@ public class FamilyFragment extends Fragment {
 
         familyVocabulary.add(new Word("father", "әpә", R.drawable.family_father,
                 R.raw.family_father));
-        familyVocabulary.add(new Word("mother", "әṭa", R.drawable.family_mother,
+        // "әṭa"
+        familyVocabulary.add(new Word("mother", "әta", R.drawable.family_mother,
                 R.raw.family_mother));
         familyVocabulary.add(new Word("son", "angsi", R.drawable.family_son,
                 R.raw.family_son));
@@ -80,7 +81,8 @@ public class FamilyFragment extends Fragment {
                 R.raw.family_older_brother));
         familyVocabulary.add(new Word("younger brother", "chalitti", R.drawable.family_younger_brother,
                 R.raw.family_younger_brother));
-        familyVocabulary.add(new Word("older sister", "teṭe", R.drawable.family_older_sister,
+        // "teṭe"
+        familyVocabulary.add(new Word("older sister", "tete", R.drawable.family_older_sister,
                 R.raw.family_older_sister));
         familyVocabulary.add(new Word("younger sister", "kolliti", R.drawable.family_younger_sister,
                 R.raw.family_younger_sister));

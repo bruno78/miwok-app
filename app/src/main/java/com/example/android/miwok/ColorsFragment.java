@@ -73,7 +73,8 @@ public class ColorsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.word_list, container, false);
 
         final ArrayList<Word> colorVocabulary = new ArrayList<>();
-        colorVocabulary.add(new Word("red", "weṭeṭṭi", R.drawable.color_red,
+        // "weṭeṭṭi"
+        colorVocabulary.add(new Word("red", "wetetti", R.drawable.color_red,
                 R.raw.color_red));
         colorVocabulary.add(new Word("green","chokokki", R.drawable.color_green,
                 R.raw.color_green));
@@ -85,9 +86,11 @@ public class ColorsFragment extends Fragment {
                 R.raw.color_black));
         colorVocabulary.add(new Word("white", "kelelli", R.drawable.color_white,
                 R.raw.color_white));
-        colorVocabulary.add(new Word("dusty yellow", "ṭopiisә", R.drawable.color_dusty_yellow,
+        // "ṭopiisә
+        colorVocabulary.add(new Word("dusty yellow", "topiisә", R.drawable.color_dusty_yellow,
                 R.raw.color_dusty_yellow));
-        colorVocabulary.add(new Word("mustard yellow", "chiwiiṭә", R.drawable.color_mustard_yellow,
+        // "chiwiiṭә"
+        colorVocabulary.add(new Word("mustard yellow", "chiwiitә", R.drawable.color_mustard_yellow,
                 R.raw.color_mustard_yellow));
 
         // Get Audio Manager system service from the context
