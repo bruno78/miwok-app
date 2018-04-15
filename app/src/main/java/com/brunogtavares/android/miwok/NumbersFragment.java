@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.brunogtavares.android.miwok;
 
 
 import android.content.Context;
@@ -11,16 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PhrasesFragment extends Fragment {
+public class NumbersFragment extends Fragment {
 
-    private static final int NO_IMAGE = -1;
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
 
@@ -35,27 +34,32 @@ public class PhrasesFragment extends Fragment {
     };
 
     /**
-     * This event listener gets triggered when the audio changes
+     * This event listener gets triggered when audio states change
      */
-    AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
+    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
         public void onAudioFocusChange(int focusChange) {
             if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
                     focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+
                 mMediaPlayer.pause();
+                // when resumes, goes back to the beginning of the audio, so the user can listen
+                // to the audio again.
                 mMediaPlayer.seekTo(0);
+
             }
             else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+
                 releaseMediaPlayer();
             }
             else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
+
                 mMediaPlayer.start();
             }
         }
     };
 
-
-    public PhrasesFragment() {
+    public NumbersFragment() {
         // Required empty public constructor
     }
 
@@ -63,61 +67,75 @@ public class PhrasesFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.word_list, container, false);
 
-        final ArrayList<Word> phrasesVocabulary = new ArrayList();
+        final ArrayList<Word> words = new ArrayList<Word>();
+        words.add(new Word("one", "lutti", R.drawable.number_one,
+                R.raw.number_one));
+        words.add(new Word("two", "otiiko", R.drawable.number_two,
+                R.raw.number_two));
+        words.add(new Word("three", "tolookosu", R.drawable.number_three,
+                R.raw.number_three));
+        words.add(new Word("four", "oyyisa", R.drawable.number_four,
+                R.raw.number_four));
+        words.add(new Word("five", "massoka", R.drawable.number_five,
+                R.raw.number_five));
+        words.add(new Word("six", "temmokka", R.drawable.number_six,
+                R.raw.number_six));
+        words.add(new Word("seven", "kenekaku", R.drawable.number_seven,
+                R.raw.number_seven));
+        words.add(new Word("eight", "kawinta", R.drawable.number_eight,
+                R.raw.number_eight));
+        words.add(new Word("nine", "wo'e", R.drawable.number_nine,
+                R.raw.number_nine));
+        words.add(new Word("ten", "na'aacha", R.drawable.number_ten,
+                R.raw.number_ten));
 
-        phrasesVocabulary.add(new Word("Where are you going?", "minto wuksus", NO_IMAGE,
-                R.raw.phrase_where_are_you_going));
-        phrasesVocabulary.add(new Word("What is your name?", "tinnә oyaase'nә", NO_IMAGE,
-                R.raw.phrase_what_is_your_name));
-        phrasesVocabulary.add(new Word("My name is...", "oyaaset...", NO_IMAGE,
-                R.raw.phrase_my_name_is));
-        phrasesVocabulary.add(new Word("How are you feeling?", "michәksәs?", NO_IMAGE,
-                R.raw.phrase_how_are_you_feeling));
-        phrasesVocabulary.add(new Word("I’m feeling good.", "kuchi achit", NO_IMAGE,
-                R.raw.phrase_im_feeling_good));
-        phrasesVocabulary.add(new Word("Are you coming?", "әәnәs'aa?", NO_IMAGE,
-                R.raw.phrase_are_you_coming));
-        phrasesVocabulary.add(new Word("Yes, I’m coming.", "hәә’ әәnәm", NO_IMAGE,
-                R.raw.phrase_yes_im_coming));
-        phrasesVocabulary.add(new Word("I’m coming.", "әәnәm", NO_IMAGE,
-                R.raw.phrase_im_coming));
-        phrasesVocabulary.add(new Word("Let’s go.", "yoowutis", NO_IMAGE,
-                R.raw.phrase_lets_go));
-        phrasesVocabulary.add(new Word("Come here.", "әnni'nem", NO_IMAGE,
-                R.raw.phrase_come_here));
-        // Creates audio Manager object
+        // Get Audio Manager system service from the context
         mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
         // Creates the adapter for the recycler view,
         // The third argument sets the color background for the Activity
-        WordAdapter adapter = new WordAdapter(getActivity(), phrasesVocabulary, R.color.category_phrases);
+        WordAdapter wordAdapter = new WordAdapter(getActivity(), words, R.color.category_numbers);
 
         ListView listView = (ListView) rootView.findViewById(R.id.list);
 
-        listView.setAdapter(adapter);
+        listView.setAdapter(wordAdapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                releaseMediaPlayer();
-                Word word = (Word) parent.getItemAtPosition(position);
 
-                int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener,
-                        AudioManager.STREAM_MUSIC,
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                releaseMediaPlayer();
+                Word word = (Word) adapterView.getItemAtPosition(position);
+
+                // Request audio focus for playback
+                int result = mAudioManager.requestAudioFocus(mAudioFocusChangeListener, AudioManager.STREAM_MUSIC,
                         AudioManager.AUDIOFOCUS_GAIN_TRANSIENT);
 
+                // If audio request is successful, start the playback
                 if(result == AudioManager.AUDIOFOCUS_REQUEST_GRANTED) {
                     mMediaPlayer = MediaPlayer.create(getActivity(), word.getAudioResourceId());
                     mMediaPlayer.start();
                     mMediaPlayer.setOnCompletionListener(mCompletionListener);
                 }
 
+
             }
         });
 
+
         return rootView;
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        releaseMediaPlayer();
     }
 
     /**
@@ -129,16 +147,10 @@ public class PhrasesFragment extends Fragment {
             mMediaPlayer.release();
             mMediaPlayer = null;
 
-            // Abandon Audio Focus when the playback is done!
+            // Abandon audio focus when playback is complete;
             mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
         }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        releaseMediaPlayer();
-    }
-
 }
+

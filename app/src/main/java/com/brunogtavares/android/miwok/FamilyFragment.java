@@ -1,4 +1,4 @@
-package com.example.android.miwok;
+package com.brunogtavares.android.miwok;
 
 
 import android.content.Context;
@@ -11,15 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ColorsFragment extends Fragment {
+public class FamilyFragment extends Fragment {
 
     private MediaPlayer mMediaPlayer;
     private AudioManager mAudioManager;
@@ -35,33 +33,29 @@ public class ColorsFragment extends Fragment {
     };
 
     /**
-     * This event listener gets triggered when audio states change
+     * This event listener gets triggered when audio state changes
      */
     private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
-        public void onAudioFocusChange(int focusChange) {
-            if (focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
-                    focusChange == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
+        public void onAudioFocusChange(int audioFocus) {
+
+            if(audioFocus == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT ||
+                    audioFocus == AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK) {
 
                 mMediaPlayer.pause();
-                // when resumes, goes back to the beginning of the audio, so the user can listen
-                // to the audio again.
                 mMediaPlayer.seekTo(0);
-
             }
-            else if (focusChange == AudioManager.AUDIOFOCUS_LOSS) {
+            else if(audioFocus == AudioManager.AUDIOFOCUS_LOSS) {
 
                 releaseMediaPlayer();
             }
-            else if (focusChange == AudioManager.AUDIOFOCUS_GAIN) {
-
+            else if(audioFocus == AudioManager.AUDIOFOCUS_GAIN) {
                 mMediaPlayer.start();
             }
         }
     };
 
-
-    public ColorsFragment() {
+    public FamilyFragment() {
         // Required empty public constructor
     }
 
@@ -69,39 +63,40 @@ public class ColorsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View rootView = inflater.inflate(R.layout.word_list, container, false);
 
-        final ArrayList<Word> colorVocabulary = new ArrayList<>();
-        // "weṭeṭṭi"
-        colorVocabulary.add(new Word("red", "wetetti", R.drawable.color_red,
-                R.raw.color_red));
-        colorVocabulary.add(new Word("green","chokokki", R.drawable.color_green,
-                R.raw.color_green));
-        colorVocabulary.add(new Word("brown", "ṭakaakki", R.drawable.color_brown,
-                R.raw.color_brown));
-        colorVocabulary.add(new Word("gray", "ṭopoppi", R.drawable.color_gray,
-                R.raw.color_gray));
-        colorVocabulary.add(new Word("black", "kululli", R.drawable.color_black,
-                R.raw.color_black));
-        colorVocabulary.add(new Word("white", "kelelli", R.drawable.color_white,
-                R.raw.color_white));
-        // "ṭopiisә
-        colorVocabulary.add(new Word("dusty yellow", "topiisә", R.drawable.color_dusty_yellow,
-                R.raw.color_dusty_yellow));
-        // "chiwiiṭә"
-        colorVocabulary.add(new Word("mustard yellow", "chiwiitә", R.drawable.color_mustard_yellow,
-                R.raw.color_mustard_yellow));
+        final ArrayList<Word> familyVocabulary = new ArrayList<>();
 
-        // Get Audio Manager system service from the context
+        familyVocabulary.add(new Word("father", "әpә", R.drawable.family_father,
+                R.raw.family_father));
+        // "әṭa"
+        familyVocabulary.add(new Word("mother", "әta", R.drawable.family_mother,
+                R.raw.family_mother));
+        familyVocabulary.add(new Word("son", "angsi", R.drawable.family_son,
+                R.raw.family_son));
+        familyVocabulary.add(new Word("daughter", "tune", R.drawable.family_daughter,
+                R.raw.family_daughter));
+        familyVocabulary.add(new Word("older brother", "taachi", R.drawable.family_older_brother,
+                R.raw.family_older_brother));
+        familyVocabulary.add(new Word("younger brother", "chalitti", R.drawable.family_younger_brother,
+                R.raw.family_younger_brother));
+        // "teṭe"
+        familyVocabulary.add(new Word("older sister", "tete", R.drawable.family_older_sister,
+                R.raw.family_older_sister));
+        familyVocabulary.add(new Word("younger sister", "kolliti", R.drawable.family_younger_sister,
+                R.raw.family_younger_sister));
+        familyVocabulary.add(new Word("grandmother", "ama", R.drawable.family_grandmother,
+                R.raw.family_grandmother));
+        familyVocabulary.add(new Word("grandfather", "paapa", R.drawable.family_grandfather,
+                R.raw.family_grandfather));
+
         mAudioManager = (AudioManager) getActivity().getSystemService(Context.AUDIO_SERVICE);
 
-        WordAdapter adapter = new WordAdapter(getActivity(), colorVocabulary, R.color.category_colors);
+        WordAdapter adapter = new WordAdapter(getActivity(), familyVocabulary, R.color.category_family);
 
-        ListView colorListView = (ListView) rootView.findViewById(R.id.list);
-        colorListView.setAdapter(adapter);
-
-        colorListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListView listView = (ListView) rootView.findViewById(R.id.list);
+        listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 releaseMediaPlayer();
@@ -118,6 +113,7 @@ public class ColorsFragment extends Fragment {
 
             }
         });
+
         return rootView;
     }
 
@@ -137,7 +133,7 @@ public class ColorsFragment extends Fragment {
             mMediaPlayer.release();
             mMediaPlayer = null;
 
-            // Abandon audio focus when playback is complete;
+            // Abandon focus when playing is done
             mAudioManager.abandonAudioFocus(mAudioFocusChangeListener);
         }
     }

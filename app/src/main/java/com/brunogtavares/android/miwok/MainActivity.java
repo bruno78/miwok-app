@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.android.miwok;
+package com.brunogtavares.android.miwok;
 
 
 import android.os.Bundle;
